@@ -5,6 +5,7 @@
  */
 package is.hi.utlit;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -14,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -23,8 +26,6 @@ public class HradbankiMainController implements Initializable {
 
     @FXML
     private TextField PinId;
-    private int[] pinArray;
-    private String currentPin;
     @FXML
     private Button KeyBord_1;
     @FXML
@@ -57,9 +58,11 @@ public class HradbankiMainController implements Initializable {
     private Button KeyBord_Quit;
     
     private int[] numberArray = new int[4];
-    private int pinSum;
-    private int selectedButton;
     private int currentIndex;
+    private Media sound;
+    private MediaPlayer mediaPlayer;
+    @FXML
+    private Button musicButton;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -68,34 +71,30 @@ public class HradbankiMainController implements Initializable {
 
     @FXML
     private void PinHandler(KeyEvent event) {
+        
     }
-    /*
-    public void setPinId() {
-        pinArray = hradBankiKeybordController.getNumberArray();
-        String DisplayPin = new String();
-        for(int i = 0; i < pinArray.length; i++) {
-            DisplayPin += pinArray[i];
-        }
-        PinId.setText(DisplayPin);
-    }
-    */
     public void displayPin() {
-        System.out.println("Current:"+currentPin);
-        PinId.setText(currentPin);
+        System.out.println("Testing");
+        String pin = new String();
+        for(int i = 0; i < currentIndex;i++) {
+            pin += numberArray[i];
+        }
+        PinId.setText(pin);
     }
 
     @FXML
     private void enterHandler(ActionEvent event) {
-        if(currentIndex <= 4) {
+        if(currentIndex == 4) {
             
         }
     }
 
     @FXML
     private void cancelHandler(ActionEvent event) {
-        if (currentIndex >= 1) {
-            numberArray[currentIndex] = 0;
+        if (currentIndex > 0) {
             currentIndex -= 1;
+            numberArray[currentIndex] = 0;
+            displayPin();
         }
     }
 
@@ -105,19 +104,33 @@ public class HradbankiMainController implements Initializable {
 
     @FXML
     private void numberHandler(ActionEvent event) {
+        ButtonSound();
         if (currentIndex < 4) {
             Button button = (Button)event.getSource();
             int id = Integer.parseInt(button.getText());
-            pinSum += (id*1000)/Math.pow(10, currentIndex);
-            System.out.println(pinSum);
             numberArray[currentIndex] = id;
             currentIndex += 1;
-            for(int i = 0; i < currentIndex; i++) {
-                System.out.print(numberArray[i]+",");
-            }
+            System.out.println(currentIndex);
+            displayPin();
             System.out.println();
         } else {
             System.out.println("Error");
         }
+    }
+    private void ButtonSound() {
+        String musicFile = "src/is/hi/soundfiles/TheTruth2.mp3";     // For example
+        sound = new Media(new File(musicFile).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.stop();
+        mediaPlayer.play();
+    }
+
+    @FXML
+    private void musicHandler(ActionEvent event) {
+        String musicFile = "src/is/hi/soundfiles/Money.mp3";     // For example
+        sound = new Media(new File(musicFile).toURI().toString());
+        mediaPlayer = new MediaPlayer(sound);
+        mediaPlayer.stop();
+        mediaPlayer.play();
     }
 }

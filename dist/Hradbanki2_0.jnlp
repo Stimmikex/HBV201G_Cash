@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="Hradbanki2_0.jar" size="8158" download="eager" />
+    <jar href="Hradbanki2_0.jar" size="9209343" download="eager" />
   </resources>
   <jfx:javafx-desc  width="800" height="600" main-class="is.hi.utlit.Hradbanki2_0"  name="Hradbanki2_0" />
   <update check="always"/>

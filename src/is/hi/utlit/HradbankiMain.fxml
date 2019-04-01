@@ -63,11 +63,13 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Button mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="1" />
                         <Button mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="2" GridPane.rowIndex="1" />
                         <Button mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="3" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" prefHeight="114.0" prefWidth="214.0" text="Button" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
@@ -82,16 +84,19 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <Button mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="4" />
                         <Button mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="5" GridPane.rowIndex="1" />
                         <Button mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="6" GridPane.rowIndex="2" />
+                        <Button mnemonicParsing="false" prefHeight="175.0" prefWidth="215.0" text="Button" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
             </VBox>
          </children>
       </AnchorPane>
+      <Button fx:id="musicButton" layoutX="547.0" layoutY="540.0" mnemonicParsing="false" onAction="#musicHandler" prefHeight="25.0" prefWidth="29.0" text="Button" />
     </children>
 </AnchorPane>
