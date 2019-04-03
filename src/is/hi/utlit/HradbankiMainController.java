@@ -15,6 +15,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
@@ -57,12 +58,43 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private Button KeyBord_Quit;
     
+    
     private int[] numberArray = new int[4];
     private int currentIndex;
     private Media sound;
     private MediaPlayer mediaPlayer;
     @FXML
     private Button musicButton;
+    
+    
+    @FXML
+    private Pane mainPin;
+    @FXML
+    private Pane Main_balance;
+    @FXML
+    private Pane mainTakeout;
+    @FXML
+    private Pane mainList;
+    @FXML
+    private Pane mainMenu;
+    
+    
+    @FXML
+    private Button LControls_1;
+    @FXML
+    private Button LControls_2;
+    @FXML
+    private Button LControls_3;
+    @FXML
+    private Button LControls_4;
+    @FXML
+    private Button RControls_1;
+    @FXML
+    private Button RControls_2;
+    @FXML
+    private Button RControls_3;
+    @FXML
+    private Button RControls_4;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -85,7 +117,7 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private void enterHandler(ActionEvent event) {
         if(currentIndex == 4) {
-            
+            mainPin.setVisible(false);
         }
     }
 

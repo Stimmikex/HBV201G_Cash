@@ -10,5 +10,17 @@ package is.hi.utlit.vinnsla;
  * @author Styrmir Óli
  */
 public class Card {
+    private String number;
+    private int pin;
     
+    public Card(String newNumber, int newPin) {
+        newNumber = number;
+        newPin = pin;
+    }
+    public String getNumber() {
+        return number;
+    }
+    public int getPin() {
+        return pin;
+    }
 }
