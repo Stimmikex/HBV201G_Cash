@@ -66,7 +66,7 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private Button musicButton;
     
-    
+    private Pane currentPane; 
     @FXML
     private Pane mainPin;
     @FXML
@@ -118,6 +118,8 @@ public class HradbankiMainController implements Initializable {
     private void enterHandler(ActionEvent event) {
         if(currentIndex == 4) {
             mainPin.setVisible(false);
+            mainMenu.setVisible(true);
+            currentPane = mainMenu;
         }
     }
 
