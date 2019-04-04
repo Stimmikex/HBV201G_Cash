@@ -65,10 +65,10 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="LControls_1" mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="1" />
-                        <Button fx:id="LControls_2" mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="2" GridPane.rowIndex="1" />
-                        <Button fx:id="LControls_3" mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="3" GridPane.rowIndex="2" />
-                        <Button fx:id="LControls_4" mnemonicParsing="false" prefHeight="114.0" prefWidth="214.0" text="Button" GridPane.rowIndex="3" />
+                        <Button fx:id="LControls_1" mnemonicParsing="false" onAction="#LControlsHandler" prefHeight="168.0" prefWidth="137.0" text="1" />
+                        <Button fx:id="LControls_2" mnemonicParsing="false" onAction="#LControlsHandler" prefHeight="168.0" prefWidth="137.0" text="2" GridPane.rowIndex="1" />
+                        <Button fx:id="LControls_3" mnemonicParsing="false" onAction="#LControlsHandler" prefHeight="168.0" prefWidth="137.0" text="3" GridPane.rowIndex="2" />
+                        <Button fx:id="LControls_4" mnemonicParsing="false" onAction="#takeHandler" prefHeight="114.0" prefWidth="214.0" text="Button" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
@@ -86,15 +86,15 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="RControls_1" mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="4" />
-                        <Button fx:id="RControls_2" mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="5" GridPane.rowIndex="1" />
-                        <Button fx:id="RControls_3" mnemonicParsing="false" prefHeight="168.0" prefWidth="137.0" text="6" GridPane.rowIndex="2" />
-                        <Button fx:id="RControls_quit" mnemonicParsing="false" prefHeight="175.0" prefWidth="215.0" text="Hætta" GridPane.rowIndex="3" />
+                        <Button fx:id="RControls_1" mnemonicParsing="false" onAction="#RControlsHandler" prefHeight="168.0" prefWidth="137.0" text="4" />
+                        <Button fx:id="RControls_2" mnemonicParsing="false" onAction="#RControlsHandler" prefHeight="168.0" prefWidth="137.0" text="5" GridPane.rowIndex="1" />
+                        <Button fx:id="RControls_3" mnemonicParsing="false" onAction="#RControlsHandler" prefHeight="168.0" prefWidth="137.0" text="6" GridPane.rowIndex="2" />
+                        <Button fx:id="RControls_quit" mnemonicParsing="false" onAction="#quitControlsHandler" prefHeight="175.0" prefWidth="215.0" text="Hætta" GridPane.rowIndex="3" />
                      </children>
                   </GridPane>
                </children>
             </VBox>
-            <Pane fx:id="mainList" disable="true" layoutX="128.0" prefHeight="274.0" prefWidth="344.0" style="-fx-background-color: YELLOw;" visible="false">
+            <Pane fx:id="mainList" layoutX="128.0" prefHeight="274.0" prefWidth="344.0" style="-fx-background-color: YELLOw;" visible="false">
                <children>
                   <Text layoutX="-3.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Færslur" textAlignment="CENTER" wrappingWidth="349.9999892135338">
                      <font>
@@ -146,7 +146,7 @@
                   </Text>
                </children>
             </Pane>
-            <Pane fx:id="mainTakeout" layoutX="122.0" prefHeight="274.0" prefWidth="350.0" style="-fx-background-color: RED;" visible="false">
+            <Pane fx:id="mainTakeout" layoutX="128.0" prefHeight="274.0" prefWidth="344.0" style="-fx-background-color: RED;" visible="false">
                <children>
                   <GridPane layoutY="81.0" prefHeight="193.0" prefWidth="350.0">
                     <columnConstraints>

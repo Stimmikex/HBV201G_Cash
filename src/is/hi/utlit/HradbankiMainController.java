@@ -61,16 +61,16 @@ public class HradbankiMainController implements Initializable {
     
     private int[] numberArray = new int[4];
     private int currentIndex;
+    private int currentPaneIndex;
     private Media sound;
     private MediaPlayer mediaPlayer;
     @FXML
     private Button musicButton;
     
-    private Pane currentPane; 
+    private Pane currentPane;
+    private Pane lastPane;
     @FXML
     private Pane mainPin;
-    @FXML
-    private Pane Main_balance;
     @FXML
     private Pane mainTakeout;
     @FXML
@@ -94,7 +94,9 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private Button RControls_3;
     @FXML
-    private Button RControls_4;
+    private Button RControls_quit;
+    @FXML
+    private Pane mainBalance;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,8 +120,11 @@ public class HradbankiMainController implements Initializable {
     private void enterHandler(ActionEvent event) {
         if(currentIndex == 4) {
             mainPin.setVisible(false);
+            lastPane = mainPin;
             mainMenu.setVisible(true);
             currentPane = mainMenu;
+            numberArray = new int[4];
+            PinId.setText("");
         }
     }
 
@@ -166,5 +171,23 @@ public class HradbankiMainController implements Initializable {
         mediaPlayer = new MediaPlayer(sound);
         mediaPlayer.stop();
         mediaPlayer.play();
+    }
+
+    @FXML
+    private void quitControlsHandler(ActionEvent event) {
+        currentPane.setVisible(false);
+        lastPane.setVisible(true);  
+    }
+
+    @FXML
+    private void RControlsHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void LControlsHandler(ActionEvent event) {
+    }
+
+    @FXML
+    private void takeHandler(ActionEvent event) {
     }
 }
