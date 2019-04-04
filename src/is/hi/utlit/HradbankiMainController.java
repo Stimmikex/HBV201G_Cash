@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package is.hi.utlit;
+import is.hi.utlit.vinnsla.testdb;
 
 import java.io.File;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -62,6 +64,7 @@ public class HradbankiMainController implements Initializable {
     private int[] numberArray = new int[4];
     private int currentIndex;
     private int currentPaneIndex;
+    private int backIndex;
     private Media sound;
     private MediaPlayer mediaPlayer;
     @FXML
@@ -69,6 +72,7 @@ public class HradbankiMainController implements Initializable {
     
     private Pane currentPane;
     private Pane lastPane;
+    
     @FXML
     private Pane mainPin;
     @FXML
@@ -100,14 +104,17 @@ public class HradbankiMainController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        currentPaneIndex = 0;
+    }
+    public void dbtesting() throws SQLException {
+        PinId.setText(testdb.rundb());
+    }
 
     @FXML
     private void PinHandler(KeyEvent event) {
         
     }
-    public void displayPin() {
+    public void displayPin(){
         System.out.println("Testing");
         String pin = new String();
         for(int i = 0; i < currentIndex;i++) {
@@ -119,12 +126,14 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private void enterHandler(ActionEvent event) {
         if(currentIndex == 4) {
-            mainPin.setVisible(false);
-            lastPane = mainPin;
-            mainMenu.setVisible(true);
-            currentPane = mainMenu;
             numberArray = new int[4];
             PinId.setText("");
+            if(currentPaneIndex == 0) {
+                mainPin.setVisible(false);
+                lastPane = mainPin;
+                mainMenu.setVisible(true);
+                currentPane = mainMenu;
+            }
         }
     }
 
@@ -138,7 +147,8 @@ public class HradbankiMainController implements Initializable {
     }
 
     @FXML
-    private void quitEnter(ActionEvent event) {
+    private void quitEnter (ActionEvent event) {
+        //dbtesting();
     }
 
     @FXML
@@ -176,11 +186,39 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private void quitControlsHandler(ActionEvent event) {
         currentPane.setVisible(false);
-        lastPane.setVisible(true);  
+        lastPane.setVisible(true);
+        currentIndex-=backIndex;
     }
 
     @FXML
     private void RControlsHandler(ActionEvent event) {
+        switch (currentPaneIndex) {
+            case 1:
+
+            break;
+            case 2:
+                RControls_1.setText("");
+                RControls_2.setText("Færslur");
+                RControls_3.setText("Staða");
+                
+                LControls_1.setText("");
+                LControls_2.setText("");
+                LControls_3.setText("");
+                LControls_4.setText("Taka út");
+            break;
+            case 3:
+
+            break;
+            case 4:
+
+            break;
+            case 5:
+
+            break;
+
+        default:
+            break;
+      }
     }
 
     @FXML
