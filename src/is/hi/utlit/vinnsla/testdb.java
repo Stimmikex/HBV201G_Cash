@@ -26,19 +26,13 @@ public class testdb extends dbConnection {
 
         String sql = query;
         ResultSet rset = stmt.executeQuery(sql);
-        /*
-        int rowCount = 0;
-        while(rset.next()) {   // Move the cursor to the next row, return false if no more row
-           String title = rset.getString("cardnumber");
-           int price = rset.getInt("pin");
-           int qty = rset.getInt("balance");
-           System.out.println("Cardnumber: "+title);
-           System.out.println("Pin: "+price);
-           System.out.println("Balance: "+qty);
-           System.out.println();
-           ++rowCount;
-        }
-        */
         return rset;
-    } 
+    }
+    public static void updateQuery(String query) throws SQLException {
+        Connection connection = null;
+        connection = dbConnection.getDBConnection();
+        Statement stmt = connection.createStatement();
+
+        stmt.executeUpdate(query);
+    }
 }

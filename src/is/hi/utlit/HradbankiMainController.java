@@ -111,6 +111,8 @@ public class HradbankiMainController implements Initializable {
     private int currentBalance;
     @FXML
     private ListView<String> transView;
+    @FXML
+    private TextField balanceDisplay;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -148,10 +150,12 @@ public class HradbankiMainController implements Initializable {
         transView.setItems(items);
     }
     public void setBalanceValue(int value) throws SQLException {
-        testdb.rundb("Update Cards SET balance="+(value+currentBalance)+" WHERE pin = "+PinDisplay);
-        testdb.rundb("INSERT INTO trans (info, cards_id) VALUES ('"+value+"','"+currentCard+"')");
+        testdb.updateQuery("Update Cards SET balance ='"+(currentBalance-value)+"' WHERE pin = "+PinDisplay);
+        testdb.updateQuery("INSERT INTO trans (info, cards_id) VALUES ('-"+value+"','"+currentCard+"')");
+        currentBalance = currentBalance - value;
     }
 
+    
     @FXML
     private void PinHandler(KeyEvent event) {
         
@@ -247,6 +251,7 @@ public class HradbankiMainController implements Initializable {
         resetControls();
          switch (currentPaneIndex) {
             case 1:
+                currentPane = mainMenu;
                 getMenu();
                 switch (NOB) {
                     case 4:
@@ -266,51 +271,59 @@ public class HradbankiMainController implements Initializable {
                 }
             break;
             case 2:
+                currentPane = mainTakeout;
                 getWith();
                 int value = 0;
                 switch (NOB) {                
                     case 1:
-                        value = -500;
+                        value = 500;
                         break;
                     case 2:
-                        value = -1000;
+                        value = 1000;
                         break;
                     case 3:
-                        value = -3000;
+                        value = 3000;
                         break;
                     case 4:
-                        value = -5000;
+                        value = 5000;
                         break;
                     case 5:
-                        value -= 10000;
+                        value = 10000;
                         break;
                     case 6:
-                        value -= 15000;
+                        value = 15000;
                         break;
                     case 7:
                         break;
                     default:
                         break;
-                }if ((value+currentBalance) > 0) {
+                }
+                System.out.println("Bal: "+currentBalance);
+                System.out.println("Value: "+value);
+                if ((currentBalance-value) > 0) {
                     setBalanceValue(value);
                 }
             break;
             case 3:
+                currentPane = mainBalance;
                 getBalance();
                 switch (NOB) {
                     case 4:
                         getWith();
+                        currentPane.setVisible(false);
                         break;
                     default:
                         break;
                 }
             break;
             case 4:
+                currentPane = mainList;
                 getList();
                 displayTrans();
                 switch (NOB) {
                     case 4:
                         getWith();
+                        currentPane.setVisible(false);
                         break;
                     default:
                         break;
@@ -351,7 +364,8 @@ public class HradbankiMainController implements Initializable {
         currentPane.setVisible(false);
         mainTakeout.setVisible(true);
     }
-    public void getBalance() {
+    public void getBalance() throws SQLException {
+        balanceDisplay.setText(Integer.toString(currentBalance));
         BControls_4.setText("Taka út");
         currentPane.setVisible(false);
         mainBalance.setVisible(true);
@@ -370,9 +384,10 @@ public class HradbankiMainController implements Initializable {
         BControls_5.setText("");
         BControls_6.setText("");
         BControls_7.setText("");
+        
+        mainMenu.setVisible(false);
+        mainTakeout.setVisible(false);
+        mainBalance.setVisible(false);
+        mainList.setVisible(false);
     }
-    public int getbalance() {
-        return 5000;
-    }
-
 }

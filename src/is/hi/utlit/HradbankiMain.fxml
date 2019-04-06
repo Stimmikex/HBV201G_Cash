@@ -134,7 +134,7 @@
                      </rowConstraints>
                      <children>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Núverandi staða er:" textAlignment="CENTER" wrappingWidth="117.4700927734375" GridPane.columnIndex="1" />
-                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField fx:id="balanceDisplay" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hætta" textAlignment="CENTER" wrappingWidth="114.7421875" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Taka út" textAlignment="CENTER" wrappingWidth="119.94073486328125" GridPane.rowIndex="3" />
                      </children>
