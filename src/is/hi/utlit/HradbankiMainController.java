@@ -113,6 +113,10 @@ public class HradbankiMainController implements Initializable {
     private ListView<String> transView;
     @FXML
     private TextField balanceDisplay;
+    @FXML
+    private Pane mainDeal;
+    @FXML
+    private TextField dealings;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -298,6 +302,7 @@ public class HradbankiMainController implements Initializable {
         resetControls();
          switch (currentPaneIndex) {
             case 1:
+                resetPane();
                 currentPane = mainMenu;
                 getMenu();
                 switch (NOB) {
@@ -318,6 +323,7 @@ public class HradbankiMainController implements Initializable {
                 }
             break;
             case 2:
+                resetPane();
                 currentPane = mainTakeout;
                 getWith();
                 int value = 0;
@@ -329,18 +335,16 @@ public class HradbankiMainController implements Initializable {
                         value = 1000;
                         break;
                     case 3:
-                        value = 3000;
-                        break;
-                    case 4:
-                        value = 5000;
+                        value = 2500;
                         break;
                     case 5:
-                        value = 10000;
+                        value = 5000;
                         break;
                     case 6:
-                        value = 15000;
+                        value = 10000;
                         break;
                     case 7:
+                        getDeal();
                         break;
                     default:
                         break;
@@ -352,6 +356,7 @@ public class HradbankiMainController implements Initializable {
                 }
             break;
             case 3:
+                resetPane();
                 currentPane = mainBalance;
                 getBalance();
                 switch (NOB) {
@@ -364,6 +369,7 @@ public class HradbankiMainController implements Initializable {
                 }
             break;
             case 4:
+                resetPane();
                 currentPane = mainList;
                 getList();
                 displayTrans();
@@ -407,11 +413,11 @@ public class HradbankiMainController implements Initializable {
     public void getWith() {
         BControls_1.setText("500");
         BControls_2.setText("1000");
-        BControls_3.setText("3000");
-        BControls_4.setText("5000");
+        BControls_3.setText("2500");
+        BControls_4.setText("");
 
-        BControls_5.setText("10000");
-        BControls_6.setText("15000");
+        BControls_5.setText("5000");
+        BControls_6.setText("10000");
         BControls_7.setText("Velja");
         
         currentPane.setVisible(false);
@@ -448,9 +454,22 @@ public class HradbankiMainController implements Initializable {
         BControls_6.setText("");
         BControls_7.setText("");
         
+        resetPane();
+    }
+    public void resetPane() {
         mainMenu.setVisible(false);
         mainTakeout.setVisible(false);
         mainBalance.setVisible(false);
         mainList.setVisible(false);
+        mainDeal.setVisible(false);
+    }
+    public void getDeal() {
+        resetControls();
+        currentPane.setVisible(false);
+        mainDeal.setVisible(true);
+    }
+
+    @FXML
+    private void PinHandler(KeyEvent event) {
     }
 }
