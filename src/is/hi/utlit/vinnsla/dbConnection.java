@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  * Database
- * @author Julian Jupiter
+ * @author Styrmir Óli Þorsteinsson.
  *
  */
 public class dbConnection {

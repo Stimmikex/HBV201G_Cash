@@ -19,6 +19,12 @@ import java.sql.Statement;
  * @author Styrmir Óli
  */
 public class testdb extends dbConnection {
+    /**
+     * This function is used for all select mySQL queries
+     * @param query the name says it all.
+     * @return rset.
+     * @throws SQLException 
+     */
     public static ResultSet rundb(String query) throws SQLException{
         Connection connection = null;
         connection = dbConnection.getDBConnection();
@@ -28,6 +34,11 @@ public class testdb extends dbConnection {
         ResultSet rset = stmt.executeQuery(sql);
         return rset;
     }
+    /**
+     * This function is used for all update/insert mySQL queries
+     * @param query the name says it all.
+     * @throws SQLException 
+     */
     public static void updateQuery(String query) throws SQLException {
         Connection connection = null;
         connection = dbConnection.getDBConnection();

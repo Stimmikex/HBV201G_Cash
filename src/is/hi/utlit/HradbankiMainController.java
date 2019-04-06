@@ -119,6 +119,12 @@ public class HradbankiMainController implements Initializable {
         currentPaneIndex = 0;
         resetControls();
     }
+    
+    /**
+     * This function is used to check if the there is a pin in the database
+     * that is the same pin as the user put in the input.
+     * @throws SQLException this is there for if there are any problems with the database
+     */
     public void pinChecker() throws SQLException {
         ResultSet rset = testdb.rundb("SELECT * FROM Cards WHERE pin = "+PinDisplay);
         int rowCount = 0;
@@ -137,6 +143,11 @@ public class HradbankiMainController implements Initializable {
            ++rowCount;
         }
     }
+    
+    /**
+     * This function is used to display all the transactions and put them in the listView
+     * @throws SQLException 
+     */
     public void displayTrans() throws SQLException {
         ResultSet rset = testdb.rundb("SELECT * FROM trans WHERE cards_id = "+currentCard);
         int rowCount = 0;
@@ -149,17 +160,22 @@ public class HradbankiMainController implements Initializable {
         }
         transView.setItems(items);
     }
+    /**
+     * This function is to change the balance and at the same time change the values in the database
+     * and also add a new transaction.
+     * @param value
+     * @throws SQLException 
+     */
     public void setBalanceValue(int value) throws SQLException {
         testdb.updateQuery("Update Cards SET balance ='"+(currentBalance-value)+"' WHERE pin = "+PinDisplay);
         testdb.updateQuery("INSERT INTO trans (info, cards_id) VALUES ('-"+value+"','"+currentCard+"')");
         currentBalance = currentBalance - value;
     }
-
     
-    @FXML
-    private void PinHandler(KeyEvent event) {
-        
-    }
+    /**
+     * this function is used to display the pin that the user has put
+     * in.
+     */
     public void displayPin(){
         String pin = new String();
         for(int i = 0; i < currentIndex;i++) {
@@ -167,7 +183,12 @@ public class HradbankiMainController implements Initializable {
         }
         PinId.setText(pin);
     }
-
+    /**
+     * This function is used to check if the pin is 4 letters and if so, resets
+     * the values of the pin, then changes the scences to the mainMenu pain.
+     * @param event button event.
+     * @throws SQLException 
+     */
     @FXML
     private void enterHandler(ActionEvent event) throws SQLException {
         if(currentIndex == 4) {
@@ -185,7 +206,10 @@ public class HradbankiMainController implements Initializable {
             }
         }
     }
-
+    /**
+     * This function is used to revert the last pin number that was entered.
+     * @param event 
+     */
     @FXML
     private void cancelHandler(ActionEvent event) {
         if (currentIndex > 0) {
@@ -194,12 +218,20 @@ public class HradbankiMainController implements Initializable {
             displayPin();
         }
     }
-
+    /**
+     * This function is used to stop the or any other things that use the keyPad.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void quitEnter (ActionEvent event) throws SQLException {
         
     }
-
+    /**
+     * This function is used when the user enters a key on the keyPad, this will
+     * then display that number as the pin.
+     * @param event 
+     */
     @FXML
     private void numberHandler(ActionEvent event) {
         ButtonSound();
@@ -215,6 +247,9 @@ public class HradbankiMainController implements Initializable {
             System.out.println("Error");
         }
     }
+    /**
+     * This function is used to play a sound then the user pressed a key.
+     */
     private void ButtonSound() {
         String musicFile = "src/is/hi/soundfiles/TheTruth2.mp3";     // For example
         sound = new Media(new File(musicFile).toURI().toString());
@@ -222,7 +257,10 @@ public class HradbankiMainController implements Initializable {
         mediaPlayer.stop();
         mediaPlayer.play();
     }
-
+    /**
+     * This function play a little song then pressed.
+     * @param event 
+     */
     @FXML
     private void musicHandler(ActionEvent event) {
         String musicFile = "src/is/hi/soundfiles/Money.mp3";     // For example
@@ -231,7 +269,10 @@ public class HradbankiMainController implements Initializable {
         mediaPlayer.stop();
         mediaPlayer.play();
     }
-
+    /**
+     * This function is used to reset the cashregister if pressed.
+     * @param event 
+     */
     @FXML
     private void quitControlsHandler(ActionEvent event) {
         currentPane.setVisible(false);
@@ -241,6 +282,12 @@ public class HradbankiMainController implements Initializable {
         resetControls();
     }
 
+    /**
+     * This function is the main control handler and is used  to change the scenes
+     * for all the panes in the program.
+     * @param event
+     * @throws SQLException 
+     */
     @FXML
     private void ControlsHandler(ActionEvent event) throws SQLException {
         Button button = (Button)event.getSource();
@@ -334,6 +381,9 @@ public class HradbankiMainController implements Initializable {
             break;
       }
     }
+    /**
+     * Gets the menu pane.
+     */
     public void getMenu() {
         BControls_1.setText("");
         //BControls_1.setDisable(true);
@@ -351,6 +401,9 @@ public class HradbankiMainController implements Initializable {
         currentPane.setVisible(false);
         mainMenu.setVisible(true);
     }
+    /**
+     * Gets the Takeout pane.
+     */
     public void getWith() {
         BControls_1.setText("500");
         BControls_2.setText("1000");
@@ -364,17 +417,27 @@ public class HradbankiMainController implements Initializable {
         currentPane.setVisible(false);
         mainTakeout.setVisible(true);
     }
+    /**
+     * Gets the balance pane.
+     * @throws SQLException 
+     */
     public void getBalance() throws SQLException {
         balanceDisplay.setText(Integer.toString(currentBalance));
         BControls_4.setText("Taka út");
         currentPane.setVisible(false);
         mainBalance.setVisible(true);
     }
+    /**
+     * Gets the list pane.
+     */
     public void getList() {
         BControls_4.setText("Taka út");
         currentPane.setVisible(false);
         mainList.setVisible(true);
     }
+    /**
+     * resets all the panes.
+     */
     public void resetControls() {
         BControls_1.setText("");
         BControls_2.setText("");
