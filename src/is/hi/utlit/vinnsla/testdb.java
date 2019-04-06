@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 import is.hi.utlit.vinnsla.dbConnection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 /**
@@ -17,9 +19,26 @@ import is.hi.utlit.vinnsla.dbConnection;
  * @author Styrmir Óli
  */
 public class testdb extends dbConnection {
-    public static String rundb() throws SQLException{
+    public static ResultSet rundb(String query) throws SQLException{
         Connection connection = null;
         connection = dbConnection.getDBConnection();
-        return connection.toString();
+        Statement stmt = connection.createStatement();
+
+        String sql = query;
+        ResultSet rset = stmt.executeQuery(sql);
+        /*
+        int rowCount = 0;
+        while(rset.next()) {   // Move the cursor to the next row, return false if no more row
+           String title = rset.getString("cardnumber");
+           int price = rset.getInt("pin");
+           int qty = rset.getInt("balance");
+           System.out.println("Cardnumber: "+title);
+           System.out.println("Pin: "+price);
+           System.out.println("Balance: "+qty);
+           System.out.println();
+           ++rowCount;
+        }
+        */
+        return rset;
     } 
 }

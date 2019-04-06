@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="Hradbanki2_0.jnlp">
+  <information>
+    <title>Hradbanki2_0</title>
+    <vendor>Styrmir Óli</vendor>
+    <description>null</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="Hradbanki2_0.jar" size="9214107" download="eager" />
+    <jar href="lib\mysql-connector-java-5.1.47-bin.jar" size="1007505" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="800" height="600" main-class="is.hi.utlit.Hradbanki2_0"  name="Hradbanki2_0" />
+  <update check="always"/>
+</jnlp>
