@@ -148,6 +148,11 @@ public class HradbankiMainController implements Initializable {
            ++rowCount;
         }
     }
+    /**
+     * This function is used to check if the database contains the current pinnumber.
+     * @return true if rset.next() is true or false if not.
+     * @throws SQLException 
+     */
     public boolean databaseContainsPin() throws SQLException {
         ResultSet rset = testdb.rundb("SELECT * FROM Cards WHERE pin = "+PinDisplay);
         System.out.println("Pin: "+PinDisplay);
@@ -487,6 +492,9 @@ public class HradbankiMainController implements Initializable {
         
         resetPane();
     }
+    /**
+     * resets all the panes.
+     */
     public void resetPane() {
         mainMenu.setVisible(false);
         mainTakeout.setVisible(false);
@@ -494,12 +502,19 @@ public class HradbankiMainController implements Initializable {
         mainList.setVisible(false);
         mainDeal.setVisible(false);
     }
+    /**
+     * Gets the mainDeal.
+     */
     public void getDeal() {
         resetControls();
         currentPane.setVisible(false);
         mainDeal.setVisible(true);
     }
-
+    
+    /**
+     * Gerir ekkert :D
+     * @param event 
+     */
     @FXML
     private void PinHandler(KeyEvent event) {
     }
