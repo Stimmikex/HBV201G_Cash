@@ -148,6 +148,16 @@ public class HradbankiMainController implements Initializable {
            ++rowCount;
         }
     }
+    public boolean databaseContainsPin() throws SQLException {
+        ResultSet rset = testdb.rundb("SELECT * FROM Cards WHERE pin = "+PinDisplay);
+        System.out.println("Pin: "+PinDisplay);
+        //System.out.println(rset.next());
+        if (rset.next() == true) {
+            System.out.println("DBTEST");
+            return true;
+        }
+        return false;
+    }
     
     /**
      * This function is used to display all the transactions and put them in the listView
@@ -159,7 +169,7 @@ public class HradbankiMainController implements Initializable {
         ObservableList<String> items =FXCollections.observableArrayList();
         while(rset.next()) {   // Move the cursor to the next row, return false if no more row
            String info = rset.getString("info");
-           System.out.println("Info: "+info);
+           //System.out.println("Info: "+info);
            items.add(info);
            ++rowCount;
         }
@@ -205,9 +215,12 @@ public class HradbankiMainController implements Initializable {
             }
             getBalance();
         } else {
-            if(currentIndex == 4) {
+            PinDisplay = PinId.getText();
+            System.out.println("PinD: "+PinDisplay);
+            System.out.println("te: "+databaseContainsPin());
+            if(databaseContainsPin()) {
+                System.out.println("Testing");
                 numberArray = new int[4];
-                PinDisplay = PinId.getText();
                 PinId.setText("");
                 pinChecker();
                 if(currentPaneIndex == 0) {
