@@ -117,6 +117,7 @@ public class HradbankiMainController implements Initializable {
     private Pane mainDeal;
     @FXML
     private TextField dealings;
+    private String dealValue = "";
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -195,18 +196,28 @@ public class HradbankiMainController implements Initializable {
      */
     @FXML
     private void enterHandler(ActionEvent event) throws SQLException {
-        if(currentIndex == 4) {
-            numberArray = new int[4];
-            PinDisplay = PinId.getText();
-            PinId.setText("");
-            pinChecker();
-            if(currentPaneIndex == 0) {
-                mainPin.setVisible(false);
-                lastPane = mainPin;
-                mainMenu.setVisible(true);
-                currentPane = mainMenu;
-                currentPaneIndex = 1;
-                getMenu();
+        if(currentPaneIndex == 5) {
+            currentPane.setVisible(false);
+            int dealAmount = Integer.parseInt(dealings.getText());
+            dealings.setText("");
+            if ((currentBalance-dealAmount) > 0) {
+                setBalanceValue(dealAmount);
+            }
+            getBalance();
+        } else {
+            if(currentIndex == 4) {
+                numberArray = new int[4];
+                PinDisplay = PinId.getText();
+                PinId.setText("");
+                pinChecker();
+                if(currentPaneIndex == 0) {
+                    mainPin.setVisible(false);
+                    lastPane = mainPin;
+                    mainMenu.setVisible(true);
+                    currentPane = mainMenu;
+                    currentPaneIndex = 1;
+                    getMenu();
+                }
             }
         }
     }
@@ -239,16 +250,21 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private void numberHandler(ActionEvent event) {
         ButtonSound();
-        if (currentIndex < 4) {
-            Button button = (Button)event.getSource();
-            int id = Integer.parseInt(button.getText());
-            numberArray[currentIndex] = id;
-            currentIndex += 1;
-            //System.out.println(currentIndex);
-            displayPin();
-            //System.out.println();
+        Button button = (Button)event.getSource();
+        int id = Integer.parseInt(button.getText());
+        if(currentPaneIndex == 5) {
+            dealValue += button.getText();
+            dealings.setText(dealValue);
         } else {
-            System.out.println("Error");
+            if (currentIndex < 4) {
+                numberArray[currentIndex] = id;
+                currentIndex += 1;
+                //System.out.println(currentIndex);
+                displayPin();
+                //System.out.println();
+            } else {
+                System.out.println("Error");
+            }
         }
     }
     /**
@@ -344,6 +360,8 @@ public class HradbankiMainController implements Initializable {
                         value = 10000;
                         break;
                     case 7:
+                        currentPane = mainDeal;
+                        currentPaneIndex = 5;
                         getDeal();
                         break;
                     default:
