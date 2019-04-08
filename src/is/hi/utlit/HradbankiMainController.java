@@ -267,6 +267,7 @@ public class HradbankiMainController implements Initializable {
     private void quitEnter (ActionEvent event) throws SQLException {
         currentPane = mainPin;
         currentPaneIndex = 0;
+        currentIndex = 0;
         resetControls();
         currentPane.setVisible(true);
         
@@ -324,11 +325,15 @@ public class HradbankiMainController implements Initializable {
      */
     @FXML
     private void quitControlsHandler(ActionEvent event) {
+        if(currentPaneIndex == 1) {
+            currentPane.setVisible(false);
+            lastPane.setVisible(true);
+        }
         currentPane.setVisible(false);
-        lastPane.setVisible(true);
         currentIndex = 0;
-        currentPaneIndex = 0;
+        currentPaneIndex = 1;
         resetControls();
+        getMenu();
     }
 
     /**
