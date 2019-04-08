@@ -325,15 +325,18 @@ public class HradbankiMainController implements Initializable {
      */
     @FXML
     private void quitControlsHandler(ActionEvent event) {
-        if(currentPaneIndex == 1) {
+        if (currentPaneIndex != 0) {
             currentPane.setVisible(false);
-            lastPane.setVisible(true);
+            resetControls();
+            if(currentPaneIndex == 1) {
+                lastPane.setVisible(true);
+                currentIndex = 0;
+                currentPaneIndex = 0;
+            } else {
+                currentPaneIndex = 1;
+                getMenu();
+            }
         }
-        currentPane.setVisible(false);
-        currentIndex = 0;
-        currentPaneIndex = 1;
-        resetControls();
-        getMenu();
     }
 
     /**
