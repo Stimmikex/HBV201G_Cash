@@ -245,10 +245,17 @@ public class HradbankiMainController implements Initializable {
      */
     @FXML
     private void cancelHandler(ActionEvent event) {
-        if (currentIndex > 0) {
-            currentIndex -= 1;
-            numberArray[currentIndex] = 0;
-            displayPin();
+        if(currentPaneIndex == 5) {
+            String currentDealings = dealings.getText();
+            String temp = currentDealings.substring(0, currentDealings.length()-1);
+            dealValue = temp;
+            dealings.setText(temp);
+        } else {
+            if (currentIndex > 0) {
+                currentIndex -= 1;
+                numberArray[currentIndex] = 0;
+                displayPin();
+            }
         }
     }
     /**
@@ -258,6 +265,10 @@ public class HradbankiMainController implements Initializable {
      */
     @FXML
     private void quitEnter (ActionEvent event) throws SQLException {
+        currentPane = mainPin;
+        currentPaneIndex = 0;
+        resetControls();
+        currentPane.setVisible(true);
         
     }
     /**
@@ -308,7 +319,7 @@ public class HradbankiMainController implements Initializable {
         mediaPlayer.play();
     }
     /**
-     * This function is used to reset the cashregister if pressed.
+     * This function is used to reset the cash register if pressed.
      * @param event 
      */
     @FXML
