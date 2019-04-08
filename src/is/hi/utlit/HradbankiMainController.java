@@ -396,10 +396,12 @@ public class HradbankiMainController implements Initializable {
                     default:
                         break;
                 }
-                System.out.println("Bal: "+currentBalance);
-                System.out.println("Value: "+value);
-                if ((currentBalance-value) > 0) {
-                    setBalanceValue(value);
+                if (NOB != 4) {
+                    System.out.println("Bal: "+currentBalance);
+                    System.out.println("Value: "+value);
+                    if ((currentBalance-value) > 0) {
+                        setBalanceValue(value);
+                    }
                 }
             break;
             case 3:
@@ -410,6 +412,7 @@ public class HradbankiMainController implements Initializable {
                     case 4:
                         getWith();
                         currentPane.setVisible(false);
+                        currentPaneIndex = 2;
                         break;
                     default:
                         break;
@@ -424,6 +427,7 @@ public class HradbankiMainController implements Initializable {
                     case 4:
                         getWith();
                         currentPane.setVisible(false);
+                        currentPaneIndex = 2;
                         break;
                     default:
                         break;
