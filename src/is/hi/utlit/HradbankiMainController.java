@@ -24,6 +24,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -118,6 +119,18 @@ public class HradbankiMainController implements Initializable {
     @FXML
     private TextField dealings;
     private String dealValue = "";
+    @FXML
+    private Text wrongPin;
+    @FXML
+    private Pane mainConfirm;
+    @FXML
+    private Text confirmYes;
+    @FXML
+    private Text confirmNo;
+    @FXML
+    private Text confirmBalance;
+    @FXML
+    private Pane mainDepo;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -187,9 +200,15 @@ public class HradbankiMainController implements Initializable {
      * @throws SQLException 
      */
     public void setBalanceValue(int value) throws SQLException {
-        testdb.updateQuery("Update Cards SET balance ='"+(currentBalance-value)+"' WHERE pin = "+PinDisplay);
-        testdb.updateQuery("INSERT INTO trans (info, cards_id) VALUES ('-"+value+"','"+currentCard+"')");
-        currentBalance = currentBalance - value;
+        if (currentPaneIndex == 6 || currentPaneIndex == 7) {
+            testdb.updateQuery("Update Cards SET balance ='"+(currentBalance+value)+"' WHERE pin = "+PinDisplay);
+            testdb.updateQuery("INSERT INTO trans (info, cards_id) VALUES ('+"+value+"','"+currentCard+"')");
+            currentBalance = currentBalance + value;
+        } else {
+            testdb.updateQuery("Update Cards SET balance ='"+(currentBalance-value)+"' WHERE pin = "+PinDisplay);
+            testdb.updateQuery("INSERT INTO trans (info, cards_id) VALUES ('-"+value+"','"+currentCard+"')");
+            currentBalance = currentBalance - value;
+        }
     }
     
     /**
@@ -218,12 +237,22 @@ public class HradbankiMainController implements Initializable {
             if ((currentBalance-dealAmount) > 0) {
                 setBalanceValue(dealAmount);
             }
+            getBalance(); 
+        }
+        else if(currentPaneIndex == 6) {
+            currentPane.setVisible(false);
+            int dealAmount = Integer.parseInt(dealings.getText());
+            dealings.setText("");
+            if ((currentBalance+dealAmount) > 0) {
+                setBalanceValue(dealAmount);
+            }
             getBalance();
         } else {
             PinDisplay = PinId.getText();
             System.out.println("PinD: "+PinDisplay);
             System.out.println("te: "+databaseContainsPin());
             if(databaseContainsPin()) {
+                wrongPin.setVisible(false);
                 System.out.println("Testing");
                 numberArray = new int[4];
                 PinId.setText("");
@@ -236,6 +265,8 @@ public class HradbankiMainController implements Initializable {
                     currentPaneIndex = 1;
                     getMenu();
                 }
+            } else {
+                wrongPin.setVisible(true);
             }
         }
     }
@@ -355,28 +386,44 @@ public class HradbankiMainController implements Initializable {
         resetControls();
          switch (currentPaneIndex) {
             case 1:
-                resetPane();
+                resetControls();
                 currentPane = mainMenu;
                 getMenu();
                 switch (NOB) {
+                    case 3:
+                        System.out.println("pane6");
+                        currentPaneIndex = 6;
+                        resetControls();
+                        currentPane = mainDepo;
+                        getDepo();
+                        break;
                     case 4:
                         System.out.println("Pane2");
                         currentPaneIndex = 2;
+                        resetControls();
+                        currentPane = mainTakeout;
+                        getWith();
                         break;
                     case 6:
                         System.out.println("Pane4");
                         currentPaneIndex = 4;
+                        resetControls();
+                        currentPane = mainList;
+                        getList();
                         break;
                     case 7:
                         System.out.println("Pane3");
                         currentPaneIndex = 3;
+                        resetControls();
+                        currentPane = mainBalance;
+                        getBalance();
                         break;
                     default:
                         break;
                 }
             break;
             case 2:
-                resetPane();
+                resetControls();
                 currentPane = mainTakeout;
                 getWith();
                 int value = 0;
@@ -405,15 +452,19 @@ public class HradbankiMainController implements Initializable {
                         break;
                 }
                 if (NOB != 4) {
-                    System.out.println("Bal: "+currentBalance);
-                    System.out.println("Value: "+value);
+                    resetControls();
+                    mainConfirm.setVisible(true);
                     if ((currentBalance-value) > 0) {
+                        confirmYes.setVisible(true);
                         setBalanceValue(value);
+                    } else {
+                        confirmNo.setVisible(true);
                     }
+                    confirmBalance.setText(Integer.toString(currentBalance));
                 }
             break;
             case 3:
-                resetPane();
+                resetControls();
                 currentPane = mainBalance;
                 getBalance();
                 switch (NOB) {
@@ -427,7 +478,7 @@ public class HradbankiMainController implements Initializable {
                 }
             break;
             case 4:
-                resetPane();
+                resetControls();
                 currentPane = mainList;
                 getList();
                 displayTrans();
@@ -441,7 +492,47 @@ public class HradbankiMainController implements Initializable {
                         break;
                 }
             break;
-
+            case 6:
+                resetControls();
+                currentPane = mainDepo;
+                getDepo();
+                int valueDepo = 0;
+                switch (NOB) {                
+                    case 1:
+                        valueDepo = 500;
+                        break;
+                    case 2:
+                        valueDepo = 1000;
+                        break;
+                    case 3:
+                        valueDepo = 2500;
+                        break;
+                    case 5:
+                        valueDepo = 5000;
+                        break;
+                    case 6:
+                        valueDepo = 10000;
+                        break;
+                    case 7:
+                        currentPane = mainDeal;
+                        currentPaneIndex = 7;
+                        getDeal();
+                        break;
+                    default:
+                        break;
+                }
+                if (NOB != 4) {
+                    resetControls();
+                    mainConfirm.setVisible(true);
+                    if ((currentBalance+valueDepo) > 0) {
+                        confirmYes.setVisible(true);
+                        setBalanceValue(valueDepo);
+                    } else {
+                        confirmNo.setVisible(true);
+                    }
+                    confirmBalance.setText(Integer.toString(currentBalance));
+                }
+                break;
         default:
             break;
       }
@@ -454,7 +545,7 @@ public class HradbankiMainController implements Initializable {
         //BControls_1.setDisable(true);
         BControls_2.setText("");
         //BControls_2.setDisable(true);
-        BControls_3.setText("");
+        BControls_3.setText("Leggja inn");
         //BControls_3.setDisable(true);
         BControls_4.setText("Taka út");
 
@@ -524,6 +615,8 @@ public class HradbankiMainController implements Initializable {
         mainBalance.setVisible(false);
         mainList.setVisible(false);
         mainDeal.setVisible(false);
+        mainConfirm.setVisible(false);
+        mainDepo.setVisible(false);
     }
     /**
      * Gets the mainDeal.
@@ -532,6 +625,19 @@ public class HradbankiMainController implements Initializable {
         resetControls();
         currentPane.setVisible(false);
         mainDeal.setVisible(true);
+    }
+    public void getDepo() {
+        BControls_1.setText("500");
+        BControls_2.setText("1000");
+        BControls_3.setText("2500");
+        BControls_4.setText("");
+
+        BControls_5.setText("5000");
+        BControls_6.setText("10000");
+        BControls_7.setText("Velja");
+        
+        currentPane.setVisible(false);
+        mainDepo.setVisible(true);
     }
     
     /**
