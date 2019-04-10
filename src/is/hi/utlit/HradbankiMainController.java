@@ -239,7 +239,7 @@ public class HradbankiMainController implements Initializable {
             }
             getBalance(); 
         }
-        else if(currentPaneIndex == 6) {
+        else if(currentPaneIndex == 7) {
             currentPane.setVisible(false);
             int dealAmount = Integer.parseInt(dealings.getText());
             dealings.setText("");
@@ -276,7 +276,7 @@ public class HradbankiMainController implements Initializable {
      */
     @FXML
     private void cancelHandler(ActionEvent event) {
-        if(currentPaneIndex == 5) {
+        if(currentPaneIndex == 5 || currentPaneIndex == 7) {
             String currentDealings = dealings.getText();
             String temp = currentDealings.substring(0, currentDealings.length()-1);
             dealValue = temp;
@@ -313,7 +313,7 @@ public class HradbankiMainController implements Initializable {
         ButtonSound();
         Button button = (Button)event.getSource();
         int id = Integer.parseInt(button.getText());
-        if(currentPaneIndex == 5) {
+        if(currentPaneIndex == 5 || currentPaneIndex == 7) {
             dealValue += button.getText();
             dealings.setText(dealValue);
         } else {
@@ -410,6 +410,7 @@ public class HradbankiMainController implements Initializable {
                         resetControls();
                         currentPane = mainList;
                         getList();
+                        displayTrans();
                         break;
                     case 7:
                         System.out.println("Pane3");
@@ -451,7 +452,7 @@ public class HradbankiMainController implements Initializable {
                     default:
                         break;
                 }
-                if (NOB != 4) {
+                if (NOB != 4 && NOB != 7) {
                     resetControls();
                     mainConfirm.setVisible(true);
                     if ((currentBalance-value) > 0) {
@@ -481,7 +482,6 @@ public class HradbankiMainController implements Initializable {
                 resetControls();
                 currentPane = mainList;
                 getList();
-                displayTrans();
                 switch (NOB) {
                     case 4:
                         getWith();
@@ -521,7 +521,7 @@ public class HradbankiMainController implements Initializable {
                     default:
                         break;
                 }
-                if (NOB != 4) {
+                if (NOB != 4 && NOB != 7) {
                     resetControls();
                     mainConfirm.setVisible(true);
                     if ((currentBalance+valueDepo) > 0) {
