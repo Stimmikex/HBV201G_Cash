@@ -14,12 +14,12 @@ import java.util.logging.Logger;
  *
  */
 public class dbConnection {
-    static String URL = "jdbc:mysql://82.148.66.15:3306/2509972569_banki"+
+    static String URL = "jdbc:mysql://localhost/banki"+
 				"?verifyServerCertificate=false"+
 				"&useSSL=true";
     //static String URL = "jdbc:mysql://82.148.66.15:3306/2509972569_banki";
     public static Connection getDBConnection() throws SQLException {
-        Connection conn = DriverManager.getConnection(URL,"2509972569","mypassword");
+        Connection conn = DriverManager.getConnection(URL,"root","");
         try {
             return conn;
         } catch (Exception e) {

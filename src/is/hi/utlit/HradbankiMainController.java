@@ -626,6 +626,9 @@ public class HradbankiMainController implements Initializable {
         currentPane.setVisible(false);
         mainDeal.setVisible(true);
     }
+    /**
+     * Gets the mainDepo
+     */
     public void getDepo() {
         BControls_1.setText("500");
         BControls_2.setText("1000");
